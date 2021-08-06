@@ -4,6 +4,7 @@ $main-dark: #254E58;
 $main-darker: #112D32;
 $main-darker_50: #112D3280;
 $outline-color: #4F4A41;
+$shadow-color: #6E665840;
 $light: #FFFFFF;
 $light_60: #FFFFFF99;
 $light_70: #FFFFFFB3;
@@ -24,8 +25,9 @@ body {
 header {
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    padding: 20px 30px;
     height: 70px;
+    width: 100%;
     .btn-source {
         position: absolute;
         background: $main-dark;
@@ -34,7 +36,7 @@ header {
         width: 90px;
         height: 30px;
         border: 2px solid $outline-color;
-        box-shadow: 0px 4px 4px #6E665840;
+        box-shadow: 0px 4px 4px $shadow-color;
         font-family: $main-font;
         cursor: pointer;
         transition: 0.25s;
@@ -52,16 +54,126 @@ header {
 .control {
     display: flex;
     justify-content: flex-start;
-    padding: 8px 20px;
+    padding: 8px 30px;
+    width: 100%;
     &__btn {
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
         margin: 0px 5px;
         cursor: pointer;
     }
 }
 
 main {
+    position: relative;
     display: flex;
-    margin: 0px 20px;
+    width: 100%;
+    // padding: 0px 10px;
 }
+
+.container {
+    position: absolute;
+    display: flex;
+    height: 580px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0px 30px;
+    &__cards{
+        width: 70%;
+    }
+    &__filters{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // justify-content: center;
+        width: 25%;
+        padding: 10px 0px 10px 0px;
+        overflow: hidden;
+    }
+}
+
+.background {
+    background: $light_60;
+    border-radius: 15px;
+    border: 1px solid $outline-color;
+    filter: blur(2px);
+    box-shadow: 0px 4px 4px $shadow-color;
+}
+
+.section-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 12%;
+    border: 1px solid $main-dark;
+    border-radius: 10px;
+    margin: 5px 0px;
+    &__title{
+        font-size: 30px;
+        color: $main-darker;
+    }
+}
+
+.section-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 10px 0px;
+    background: $light_60;
+    border: 1px solid $main-dark;
+    border-radius: 10px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    padding: 10px 0px;
+    &__title{
+        font-size: 20px;
+        color: $main-dark;
+        margin: 5px 0px;
+    }
+    &__filters{
+        display: flex;
+        flex-direction: column;
+        background: $light;
+        border: 1px solid $main-dark;
+        width: 100%;
+        padding: 5px;
+        &--box{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100px;
+            background: $light;
+            border: 1px solid $main-dark;
+        }
+    }
+    span {
+        display: flex;
+        align-items: center;
+        width: 90%;
+        margin: 2px 0px;
+        img {
+            margin: 0px 5px;
+            cursor: pointer;
+        }
+    }
+    &__input {
+        font-family: $main-font;
+        width: 100%;
+        margin: 0px 0px 10px 0px;
+    }
+}
+
+.text-fields {
+    color: $main-dark;
+}
+
+
+
+
