@@ -1,4 +1,5 @@
 const HTMLWebPack = require("html-webpack-plugin")
+const CopyPlugin  = require('copy-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -24,12 +25,30 @@ module.exports = {
                     'sass-loader',
                 ]
             },
+            {
+                test: /\.(png|jpg|svg)$/i,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.js$/,
+                enforce: 'pre',
+                use: ['source-map-loader']
+            },
         ]
     },
 
     plugins: [
         new HTMLWebPack({
             template: 'src/index.html'
+        }),        
+        new CopyPlugin({
+            patterns: [
+                {from: 'src/assets/', to: 'assets/'}
+            ]
         }),
     ]
 
