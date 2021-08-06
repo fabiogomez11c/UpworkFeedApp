@@ -1,5 +1,51 @@
+$main-color: #88BDBC;
+$main-color_25: #88BDBC40;
+$main-dark: #254E58;
+$main-darker: #112D32;
+$main-darker_50: #112D3280;
+$outline-color: #4F4A41;
+$light: #FFFFFF;
+$light_60: #FFFFFF99;
+$light_70: #FFFFFFB3;
+
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+}
+
+body {
+    font-family: "ABeeZee", sans-serif;
+    background: radial-gradient(50% 50% at 50% 50%, white 0%, $main-color 100%);
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    .btn-source {
+        background: $main-dark;
+        color: $light;
+        border-radius: 10px;
+        width: 90px;
+        height: 30px;
+        border-style: none;
+    }
+}
+
+.control {
+    display: flex;
+    justify-content: flex-start;
+    padding: 8px 20px;
+    &__btn {
+        width: 40px;
+        height: 40px;
+        margin: 0px 5px;
+    }
+}
+
+main {
+    display: flex;
+    margin: 0px 20px;
 }
