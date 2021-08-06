@@ -167,6 +167,9 @@ main {
         font-family: $main-font;
         width: 100%;
         margin: 0px 0px 10px 0px;
+        &:focus {
+            outline-width: 0px;
+        }
     }
 }
 
