@@ -80,6 +80,11 @@ main {
     padding: 0px 30px;
     &__cards{
         width: 70%;
+        display: grid;
+        padding: 30px 30px;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr ;
+        gap: 35px 40px;
     }
     &__filters{
         display: flex;
@@ -177,6 +182,12 @@ main {
     color: $main-dark;
 }
 
-
-
+.card {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid $main-dark;
+    box-shadow: 0px 8px 8px 8px rgba(0,0,0,0.25);
+    background: $main-color_25;
+}
 
