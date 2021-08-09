@@ -189,5 +189,57 @@ main {
     border: 1px solid $main-dark;
     box-shadow: 0px 8px 8px 8px rgba(0,0,0,0.25);
     background: $main-color_25;
+    &__card{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: 0px 15px;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    &__title{
+        color: $main-dark;
+        text-align: center;
+    }
+    &__text{
+        color: $main-dark;
+        &--price{
+            font-size: 12px;
+        }
+        &--date{
+            font-size: 12px;
+        }
+    }
+    &__button{
+        background: $main-darker;
+        border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // width: 85px;
+        padding: 7px;
+        // height: 25px;
+        a {
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+        }
+    }
+    .keyword{
+        display: flex;
+        &__text{
+            background: $main-color;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6px;
+            margin: 3px;
+            p {
+                color: $main-dark;
+            }
+        }
+    }
 }
 

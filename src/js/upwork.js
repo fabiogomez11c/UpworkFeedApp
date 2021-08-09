@@ -1,22 +1,4 @@
 
-// const urlUpwork = "https://cors-anywhere.herokuapp.com/https://www.upwork.com/jobs/PERN-Stack-App_~015db5456a0df705f7?source=rss";
-
-// const parser = new DOMParser();
-// let res;
-// let ress;
-
-// fetch(urlUpwork).then(response => response.text())
-//     .then(str => new DOMParser().parseFromString(str, "text/html"))
-//     .then(data => {
-//         console.log(data)
-//         // res = data.querySelector("item")
-//         // // console.log(res)
-//         // ress = parser.parseFromString(res.querySelector("description").textContent, 'text/html')
-//         // console.log(
-//         //     ress.querySelector("body").textContent
-//         // )
-//     })
-
 export class CandidateList {
 
     constructor () {
@@ -101,6 +83,9 @@ export class CandidateList {
 
         this.jobList.sort((a, b) => b.totalScore - a.totalScore)
         this.topJobs = this.jobList.slice(0, 6)
+        // console.log(this.topJobs)
+
+        this.doHTML()
     }
 
     compareCreateReplace(){
@@ -114,6 +99,15 @@ export class CandidateList {
         /*
         reorder if needed the cards into the document
         */
+
+        const cards = document.querySelectorAll(".card");
+
+        for (let i = 0; i < cards.length; i++){
+            cards[i].append(
+                this.topJobs[i].html.firstElementChild
+            );
+        };
+
     }
 
     getContain (){
@@ -146,7 +140,6 @@ class Candidate {
         this.postedOn = postedOn
         this.link     = link;
         this.content  = content
-
     }
 
     computeKeywords(keywords){
@@ -161,9 +154,32 @@ class Candidate {
             this.totalScore = this.totalScore + this.keywordsCount[i]
         }
 
+        this.createHTML()
     }
 
     createHTML (){
-        this.html = null
+
+        let spanHTML = ""
+        for (let i in this.keywordsCount){
+            if (this.keywordsCount[i] > 0){
+                const tempSpan = `
+                <span class="keyword__text"><p>${i}</p></span>
+                `
+                spanHTML = spanHTML + tempSpan
+            }
+        }
+
+        const innerHtml = `
+        <div class="card__card">
+            <h4 class="card__title">${this.title.replace(" - Upwork", "")}</h4>
+            <p class="card__text card__text--price">${this.price.replace(" Range", "")}</p>
+            <div class="card__keyword keyword">${spanHTML}</div>
+            <span class="card__button"><a href="${this.link}">Read more</a></span>
+            <p class="card__text card__text--date">${this.postedOn}</p>
+        </div>
+        `
+
+        this.html = document.createElement('div')
+        this.html.innerHTML = innerHtml
     }
 }
