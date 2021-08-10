@@ -8,3 +8,8 @@ VanillaTilt.init(document.querySelectorAll(".card"), {
 
 const testList = new CandidateList();
 testList.fetchJobs()
+
+setInterval(() => {
+    console.log("Refresh")
+    testList.fetchJobs()
+}, 1000*60*10)

@@ -2,27 +2,23 @@
 export class CandidateList {
 
     constructor () {
-        this.list    = {
-            rank1: null,
-            rank2: null,
-            rank3: null,
-            rank4: null,
-            rank5: null,
-            rank6: null
-        };
-
         this.jobList   = [];
-        this.topJobs   = []
+        this.topJobs   = [];
+        this.jobTitles = [];
         // this.upworkUrl = "https://cors-anywhere.herokuapp.com/https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974"
-        this.upworkUrl = "https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974"
+        this.upworkUrl = "https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974";
 
-        this.keywords = ["javascript", "html"]
+        this.keywords = ["javascript", "html"];
+        this.isActive = false;
     }
 
     fetchJobs (){
         /*
         method to fetch all the jobs from the feed
         */
+
+        this.jobList = [];
+        this.topJobs = [];
         
         const parser = new DOMParser();
 
@@ -46,9 +42,9 @@ export class CandidateList {
 
                     tempArr.content = parser.parseFromString(
                         itm.querySelector("description").textContent, 'text/html'
-                    ).querySelector("body").innerHTML
+                    ).querySelector("body").innerHTML;
 
-                    const tempContent = tempArr.content.split("<br>")
+                    const tempContent = tempArr.content.split("<br>");
 
                     for (let i of tempContent){
                         if (i.includes("<b>Budget</b>") | i.includes("<b>Hourly Range</b>")){
@@ -56,7 +52,7 @@ export class CandidateList {
                         } else if(i.includes("<b>Posted On</b>")) {
                             tempArr.postedOn = i.replace("\n", "");
                         }
-                    }
+                    };
 
                     const preCandidate = new Candidate(
                         tempArr.title,
@@ -64,15 +60,15 @@ export class CandidateList {
                         tempArr.postedOn,
                         tempArr.link,
                         tempArr.content
-                    )
-                    preCandidate.computeKeywords(this.keywords)
+                    );
+                    preCandidate.computeKeywords(this.keywords);
 
                     this.jobList.push(preCandidate);
                 })
                 // console.log(listItems)
             }).finally(() => {
                 // console.log(this.jobList)
-                this.sortJobs()
+                this.sortJobs();
             })
     }
 
@@ -81,18 +77,24 @@ export class CandidateList {
         method to sort all the jobs according to the parameters
         */
 
-        this.jobList.sort((a, b) => b.totalScore - a.totalScore)
-        this.topJobs = this.jobList.slice(0, 6)
-        // console.log(this.topJobs)
+        let newEntry = false
 
-        this.doHTML()
-    }
+        this.jobList.sort((a, b) => b.totalScore - a.totalScore);
+        this.topJobs = this.jobList.slice(0, 6);
 
-    compareCreateReplace(){
-        /*
-        compare the sorted jobs with the existing list, replace if needed,
-        create if needed
-        */
+        for (let i of this.topJobs){
+            if (this.jobTitles.includes(i.title)){
+                newEntry = true;
+                break
+            }
+        };
+
+        this.doHTML();
+        
+        if (newEntry){
+            let audio = new Audio('./assets/ring.mp3')
+            audio.play()
+        }
     }
 
     doHTML(){
@@ -103,10 +105,17 @@ export class CandidateList {
         const cards = document.querySelectorAll(".card");
 
         for (let i = 0; i < cards.length; i++){
+            if (this.isActive){
+                cards[i].removeChild(cards[i].lastElementChild);
+            } 
             cards[i].append(
                 this.topJobs[i].html.firstElementChild
             );
         };
+
+        if (!this.isActive){
+            this.isActive = true;
+        }
 
     }
 
@@ -114,21 +123,21 @@ export class CandidateList {
         /*
         get the filters in the contain
         */
-        this.keywords = []
+        this.keywords = [];
     }
 
     changeContractType(){
         /*
         get the filters in the contract type
         */
-        this.upworkUrl = null
+        this.upworkUrl = null;
     }
 
     changeExperience (){
         /*
         get the filters in the experience
         */
-        this.upworkUrl = null
+        this.upworkUrl = null;
     }
 }
 
@@ -136,10 +145,10 @@ class Candidate {
 
     constructor(title, price, postedOn, link, content){
         this.title    = title;
-        this.price    = price
-        this.postedOn = postedOn
+        this.price    = price;
+        this.postedOn = postedOn;
         this.link     = link;
-        this.content  = content
+        this.content  = content;
     }
 
     computeKeywords(keywords){
@@ -151,21 +160,21 @@ class Candidate {
             const regExpTemp = new RegExp(i, "g");
             this.keywordsCount[i] = (this.content.toLowerCase().
                 match(regExpTemp) || []).length;
-            this.totalScore = this.totalScore + this.keywordsCount[i]
+            this.totalScore = this.totalScore + this.keywordsCount[i];
         }
 
-        this.createHTML()
+        this.createHTML();
     }
 
     createHTML (){
 
-        let spanHTML = ""
+        let spanHTML = "";
         for (let i in this.keywordsCount){
             if (this.keywordsCount[i] > 0){
                 const tempSpan = `
                 <span class="keyword__text"><p>${i}</p></span>
                 `
-                spanHTML = spanHTML + tempSpan
+                spanHTML = spanHTML + tempSpan;
             }
         }
 
@@ -177,9 +186,9 @@ class Candidate {
             <span class="card__button"><a href="${this.link}">Read more</a></span>
             <p class="card__text card__text--date">${this.postedOn}</p>
         </div>
-        `
+        `;
 
-        this.html = document.createElement('div')
-        this.html.innerHTML = innerHtml
+        this.html = document.createElement('div');
+        this.html.innerHTML = innerHtml;
     }
 }
