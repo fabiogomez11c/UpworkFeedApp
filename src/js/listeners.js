@@ -22,9 +22,10 @@ const volumeCont = new volumeController();
 
 refreshBtn.addEventListener('click', (event) => {
     clearInterval(refreshInterval);
-    console.log("Btn Refresh");
+    // console.log("Btn Refresh");
+    testList.fetchJobs();
+    // console.log("Refresh");
     refreshInterval = setInterval(() => {
-        console.log("Refresh");
         testList.fetchJobs();
     }, 1000*60*10);
 });

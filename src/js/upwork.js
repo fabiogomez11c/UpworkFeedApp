@@ -98,7 +98,7 @@ export class CandidateList {
             for (let i of this.topJobs){
                 this.jobTitles.push(i.title)
             }
-            console.log(this.jobTitles)
+            // console.log(this.jobTitles)
         }
     }
 
