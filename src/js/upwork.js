@@ -83,9 +83,9 @@ export class CandidateList {
         this.topJobs = this.jobList.slice(0, 6);
 
         for (let i of this.topJobs){
-            if (this.jobTitles.includes(i.title)){
+            if (!this.jobTitles.includes(i.title)){
                 newEntry = true;
-                break
+                console.log("New entry")
             }
         };
 
@@ -94,6 +94,11 @@ export class CandidateList {
         if (newEntry){
             let audio = new Audio('./assets/ring.mp3')
             audio.play()
+            this.jobTitles = []
+            for (let i of this.topJobs){
+                this.jobTitles.push(i.title)
+            }
+            console.log(this.jobTitles)
         }
     }
 
