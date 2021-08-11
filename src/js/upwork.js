@@ -7,7 +7,8 @@ export class CandidateList {
         this.topJobs   = [];
         this.jobTitles = [];
         this.upworkUrl = "https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974";
-        this.keywords  = ["javascript", "html"];
+        // this.keywords  = ["javascript", "html"];
+        this.keywords  = [];
         this.isActive  = false;
         this.withSound = true
     }
@@ -85,7 +86,7 @@ export class CandidateList {
         for (let i of this.topJobs){
             if (!this.jobTitles.includes(i.title)){
                 newEntry = true;
-                console.log("New entry")
+                // console.log("New entry")
             }
         };
 

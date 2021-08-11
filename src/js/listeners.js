@@ -16,9 +16,15 @@ class volumeController {
 }
 
 // listeners
-const refreshBtn = document.querySelector(".control__btn--refresh");
-const volumeBtn  = document.querySelector(".control__btn--volume");
-const volumeCont = new volumeController();
+const refreshBtn   = document.querySelector(".control__btn--refresh");
+const volumeBtn    = document.querySelector(".control__btn--volume");
+const containInput = document.querySelector(".filter__input");
+const containDiv   = document.querySelector(".filter__filters--box");
+
+const volumeCont   = new volumeController();
+const keywordsE    = {};
+
+let counter      = 0;
 
 refreshBtn.addEventListener('click', (event) => {
     clearInterval(refreshInterval);
@@ -39,3 +45,37 @@ volumeBtn.addEventListener('click', (event) => {
     volumeCont.active = !volumeCont.active;
 });
 
+containInput.addEventListener('keyup', (event) => {
+    if (event.code === "Enter" & event.target.value.length > 0){
+        testList.keywords.push(event.target.value);
+        testList.fetchJobs();
+
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = `
+        <div class="filter__label">
+            <p class="text-fields--contain">${event.target.value}</p>
+            <img class="filter__x x__${counter}" src="./assets/xcircle.svg">
+        </div>
+        `
+        containDiv.append(tempDiv.firstElementChild)
+        keywordsE[counter] = document.querySelector(
+            `.x__${counter}`
+        );
+        keywordsE[counter].addEventListener('click', (event) => {
+            const tempElmnt = event.target.parentElement;
+
+            containDiv.removeChild(tempElmnt);
+
+            testList.keywords.pop(
+                tempElmnt.firstElementChild.innerText
+            );
+
+            testList.fetchJobs();
+
+        });
+        
+        counter++
+
+        event.target.value = '';
+    }
+});

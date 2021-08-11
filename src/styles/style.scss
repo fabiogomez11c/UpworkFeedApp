@@ -152,10 +152,12 @@ main {
         &--box{
             display: flex;
             flex-direction: column;
+            flex-wrap: wrap;
             width: 100%;
             height: 100px;
             background: $light;
             border: 1px solid $main-dark;
+            overflow: hidden;
         }
     }
     span {
@@ -176,10 +178,27 @@ main {
             outline-width: 0px;
         }
     }
+    &__label{
+        background: $main-color;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 5px;
+        margin: 5px;
+        border-radius: 25px;
+        width: max-content;
+        position: relative;
+    }
+    &__x{
+        cursor: pointer;
+    }
 }
 
 .text-fields {
     color: $main-dark;
+    &--contain{
+        font-size: 12px;
+    }
 }
 
 .card {
