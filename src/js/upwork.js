@@ -3,14 +3,13 @@ export class CandidateList {
 
     constructor () {
         // this.upworkUrl = "https://cors-anywhere.herokuapp.com/https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974"
-        this.jobList   = [];
-        this.topJobs   = [];
-        this.jobTitles = [];
-        this.upworkUrl = "https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974";
-        // this.keywords  = ["javascript", "html"];
-        this.keywords  = [];
-        this.isActive  = false;
-        this.withSound = true
+        this.jobList    = [];
+        this.topJobs    = [];
+        this.jobTitles  = [];
+        this.upworkUrl  = "https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974";
+        this.keywords   = [];
+        this.isActive   = false;
+        this.withSound  = true
     }
 
     fetchJobs (){
@@ -66,9 +65,7 @@ export class CandidateList {
 
                     this.jobList.push(preCandidate);
                 })
-                // console.log(listItems)
             }).finally(() => {
-                // console.log(this.jobList)
                 this.sortJobs();
             })
     }
@@ -80,7 +77,7 @@ export class CandidateList {
 
         let newEntry = false
 
-        // this.jobList.sort((a, b) => b.totalScore - a.totalScore);
+        this.jobList.sort((a, b) => b.totalScore - a.totalScore);
         this.topJobs = this.jobList.slice(0, 6);
 
         for (let i of this.topJobs){
@@ -92,7 +89,7 @@ export class CandidateList {
 
         this.doHTML();
         
-        if (newEntry){
+        if (newEntry & this.withSound){
             let audio = new Audio('./assets/ring.mp3')
             audio.play()
             this.jobTitles = []
@@ -119,7 +116,7 @@ export class CandidateList {
             );
         };
 
-        if (!this.isActive & this.withSound){
+        if (!this.isActive){
             this.isActive = true;
         }
 

@@ -39,8 +39,10 @@ refreshBtn.addEventListener('click', (event) => {
 volumeBtn.addEventListener('click', (event) => {
     if (!volumeCont.active){
         volumeBtn.src = "./assets/volumefull.svg";
+        testList.withSound = true;
     } else {
         volumeBtn.src = "./assets/volumemute.svg";
+        testList.withSound = false;
     }
     volumeCont.active = !volumeCont.active;
 });
