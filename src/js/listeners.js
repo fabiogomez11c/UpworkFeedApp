@@ -1,4 +1,5 @@
 import { CandidateList } from "./upwork"
+import './checkboxes'
 
 const testList = new CandidateList();
 testList.fetchJobs();
