@@ -132,18 +132,30 @@ export class CandidateList {
         this.keywords = [];
     }
 
-    changeContractType(){
+    changeUrl(newUrl){
         /*
         get the filters in the contract type
         */
-        this.upworkUrl = null;
-    }
 
-    changeExperience (){
-        /*
-        get the filters in the experience
-        */
-        this.upworkUrl = null;
+        switch (newUrl){
+            case "fixed":
+                this.upworkUrl = "https://www.upwork.com/ab/feed/jobs/rss?q=javascript+html+css&sort=recency&job_type=fixed&paging=0%3B50&api_params=1&securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425";
+                break;
+            case "hourly":
+                this.upworkUrl = "https://www.upwork.com/ab/feed/jobs/rss?q=javascript+html+css&sort=recency&job_type=hourly&paging=0%3B50&api_params=1&securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425";
+                break;
+            case "expert":
+                this.upworkUrl = "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=3&q=javascript+html+css&sort=recency&paging=0%3B50&api_params=1&securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425";
+                break;
+            case "intermediate":
+                this.upworkUrl = "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=2&q=javascript+html+css&sort=recency&paging=0%3B50&api_params=1&securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425";
+                break;
+            case "entry":
+                this.upworkUrl = "https://www.upwork.com/ab/feed/jobs/rss?contractor_tier=1&q=javascript+html+css&sort=recency&paging=0%3B50&api_params=1&securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425";
+                break;
+            default:
+                this.upworkUrl = "https://www.upwork.com/ab/feed/topics/rss?securityToken=2d23f08bbd9a7ab37af8f9a3fd88f662218772c7473006ba84fc5340c4f4f8afc40b3d5b5a85561958a4f51866316e22126fd7a65a1e5a3bd2a7eed1e7431675&userUid=1099141625217413120&orgUid=1099141625221607425&topic=5306974";
+        }
     }
 }
 
